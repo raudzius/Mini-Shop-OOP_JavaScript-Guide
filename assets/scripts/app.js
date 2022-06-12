@@ -1,17 +1,21 @@
+class Product {
+  constructor(title, image, desc, price) {
+    this.title = title;
+    this.imageUrl = image;
+    this.description = desc;
+    this.price = price;
+  }
+}
+
 const productList = {
   products: [
-    {
-      title: 'A Pillow',
-      imageUrl: 'https://contents.mediadecathlon.com/p1749048/f0b275c3207e208e12771a5c385d3ff8/p1749048.jpg?format=auto&quality=70&f=1024x0',
-      price: 19.99,
-      description: 'A soft pillow!',
-    },
-    {
-      title: 'A Pillow',
-      imageUrl: 'https://marvel-b1-cdn.bc0a.com/f00000000083977/www.coit.com/sites/default/files/styles/original/public/media/2018-10/cofee-stain-card-large.jpg?itok=I1QoE5H4',
-      price: 89.99,
-      description: 'A which you might like - or not',
-    },
+    new Product('A Pillow', 'https://contents.mediadecathlon.com/p1749048/f0b275c3207e208e12771a5c385d3ff8/p1749048.jpg?format=auto&quality=70&f=1024x0', 19.99, 'A soft pillow!'),
+    new Product(
+      'A Carpet',
+      'https://marvel-b1-cdn.bc0a.com/f00000000083977/www.coit.com/sites/default/files/styles/original/public/media/2018-10/cofee-stain-card-large.jpg?itok=I1QoE5H4',
+      89.99,
+      'A which you might like - or not'
+    ),
   ],
 
   render() {
