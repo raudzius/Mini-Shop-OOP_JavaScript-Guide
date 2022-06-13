@@ -10,9 +10,19 @@ class Product {
 class ShoppingCart {
   items = [];
 
+  set cartItems(value) {
+    this.items = value;
+    this.totalOutput.innerHTML = `<h2>Total: \$${this.totalAmount.toFixed(2)}`;
+  }
+
+  get totalAmount() {
+    return this.items.reduce((pervValue, currItem) => pervValue + currItem.price, 0);
+  }
+
   addProduct(product) {
-    this.items.push(product);
-    this.totalOutput.innerHTML = `<h2>Total: \$${1}`;
+    const updatedItems = [...this.items];
+    updatedItems.push(product);
+    this.cartItems = updatedItems;
   }
 
   render() {
