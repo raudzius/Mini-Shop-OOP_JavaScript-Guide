@@ -15,9 +15,11 @@ class ElementAttribute {
 }
 
 class Component {
-  constructor(renderHookId) {
+  constructor(renderHookId, shouldRender = true) {
     this.hookId = renderHookId;
-    this.render();
+    if (shouldRender) {
+      this.render();
+    }
   }
 
   render() {}
@@ -71,8 +73,9 @@ class ShoppingCart extends Component {
 
 class ProductItem extends Component {
   constructor(product, renderHookId) {
-    super(renderHookId);
+    super(renderHookId, false);
     this.product = product;
+    this.render();
   }
 
   addToCart() {
@@ -98,24 +101,36 @@ class ProductItem extends Component {
 }
 
 class ProductList extends Component {
-  products = [
-    new Product('A Pillow', 'https://contents.mediadecathlon.com/p1749048/f0b275c3207e208e12771a5c385d3ff8/p1749048.jpg?format=auto&quality=70&f=1024x0', 'A soft pillow!', 19.99),
-    new Product(
-      'A Carpet',
-      'https://marvel-b1-cdn.bc0a.com/f00000000083977/www.coit.com/sites/default/files/styles/original/public/media/2018-10/cofee-stain-card-large.jpg?itok=I1QoE5H4',
-      'A carpet which you might like - or not',
-      89.99
-    ),
-  ];
+  products = [];
 
   constructor(renderHookId) {
     super(renderHookId);
+    this.fetchProducts();
+  }
+
+  fetchProducts() {
+    this.products = [
+      new Product('A Pillow', 'https://contents.mediadecathlon.com/p1749048/f0b275c3207e208e12771a5c385d3ff8/p1749048.jpg?format=auto&quality=70&f=1024x0', 'A soft pillow!', 19.99),
+      new Product(
+        'A Carpet',
+        'https://marvel-b1-cdn.bc0a.com/f00000000083977/www.coit.com/sites/default/files/styles/original/public/media/2018-10/cofee-stain-card-large.jpg?itok=I1QoE5H4',
+        'A carpet which you might like - or not',
+        89.99
+      ),
+    ];
+    this.render();
+  }
+
+  renderProducts() {
+    for (const prod of this.products) {
+      new ProductItem(prod, 'prod-list');
+    }
   }
 
   render() {
     this.createRootElement('ul', 'product-list', [new ElementAttribute('id', 'prod-list')]);
-    for (const prod of this.products) {
-      new ProductItem(prod, 'prod-list');
+    if (this.products && this.products.length > 0) {
+      this.renderProducts();
     }
   }
 }
